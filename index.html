@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zéro Écran · nos livres</title>
+<meta name="description" content="Des livres-jeux qui font lâcher le téléphone. Énigmes, mots mêlés, blagues : de 6 à 99 ans.">
+<meta property="og:title" content="Zéro Écran · nos livres">
+<meta property="og:description" content="Des livres-jeux qui font lâcher le téléphone. De 6 à 99 ans.">
+<meta property="og:image" content="img/logo.webp">
+<meta name="theme-color" content="#162654">
+<link rel="icon" href="img/logo.webp">
+<style>
+@font-face { font-family: "Titan"; src: url("img/TitanOne-Regular.ttf") format("truetype"); font-display: swap; }
+:root {
+  --nuit: #162654; --nuit2: #284284; --nuit3: #0b1430;
+  --jaune: #ffc93c; --rouge: #e63946; --neige: #ffffff; --texte: #e8edff; --doux: #aab6e0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--nuit3); }
+body {
+  min-height: 100vh; color: var(--texte); font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: radial-gradient(120% 70% at 50% 0%, var(--nuit2) 0%, var(--nuit) 45%, var(--nuit3) 100%) fixed;
+  overflow-x: hidden;
+}
+#neige { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+main { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 28px 16px 48px; }
+
+/* en-tête */
+.tete { text-align: center; }
+.logo {
+  width: 104px; height: 104px; border-radius: 50%; display: block; margin: 0 auto 12px;
+  box-shadow: 0 0 0 4px var(--jaune), 0 10px 30px rgba(0,0,0,.45);
+  animation: flotte 5s ease-in-out infinite;
+}
+h1 { font: 34px/1 "Titan", system-ui; color: var(--jaune); letter-spacing: .5px; text-shadow: 0 4px 0 var(--nuit3); }
+h1 span { color: var(--neige); }
+.slogan { margin-top: 8px; color: var(--doux); font-size: 15px; }
+.slogan b { color: var(--neige); }
+
+/* compte à rebours */
+.rebours {
+  margin: 18px auto 0; display: inline-flex; gap: 10px; align-items: center;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  padding: 8px 14px; border-radius: 999px; font-weight: 700; font-size: 14px;
+}
+.rebours .j { font: 20px/1 "Titan", system-ui; color: var(--rouge); background: var(--neige); border-radius: 8px; padding: 4px 8px; min-width: 2.2em; text-align: center; }
+
+/* filtres */
+.filtres { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 22px 0 6px; }
+.filtres button {
+  font: 600 14px/1 system-ui, sans-serif; color: var(--texte); background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: 9px 14px; cursor: pointer;
+  transition: transform .15s, background .2s, color .2s;
+}
+.filtres button:active { transform: scale(.95); }
+.filtres button[aria-pressed="true"] { background: var(--jaune); color: var(--nuit3); border-color: var(--jaune); }
+
+/* cartes */
+.livres { display: grid; gap: 18px; margin-top: 16px; }
+.carte {
+  position: relative; display: grid; grid-template-columns: 112px 1fr; gap: 14px; align-items: center;
+  padding: 14px; border-radius: 22px; background: linear-gradient(160deg, rgba(255,255,255,.11), rgba(255,255,255,.03));
+  border: 1px solid rgba(255,255,255,.14); box-shadow: 0 14px 30px rgba(0,0,0,.35);
+  opacity: 0; transform: translateY(26px) scale(.98); transition: opacity .6s, transform .6s cubic-bezier(.2,.9,.3,1.3);
+}
+.carte.vue { opacity: 1; transform: none; }
+.carte.cache { display: none; }
+.carte.vedette {
+  grid-template-columns: 1fr; text-align: center; padding: 20px 18px 18px;
+  background: linear-gradient(160deg, rgba(255,201,60,.22), rgba(230,57,70,.10) 60%, rgba(255,255,255,.03));
+  border: 2px solid var(--jaune);
+}
+.couv { perspective: 700px; }
+.couv img {
+  width: 100%; display: block; border-radius: 6px 10px 10px 6px;
+  box-shadow: -6px 10px 22px rgba(0,0,0,.5), inset 3px 0 0 rgba(255,255,255,.25);
+  transform: rotateY(-14deg) rotateX(3deg); transition: transform .4s; will-change: transform;
+}
+.vedette .couv { width: 44%; margin: 8px auto 6px; }
+.vedette .couv img { animation: tourne 6s ease-in-out infinite; }
+.badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%) rotate(-2deg);
+  font: 15px/1 "Titan", system-ui; color: var(--nuit3); background: var(--jaune);
+  padding: 8px 14px; border-radius: 999px; white-space: nowrap; box-shadow: 0 6px 0 #c8961a;
+  animation: pulse 2.2s ease-in-out infinite;
+}
+.pour { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--jaune); }
+h2 { font: 20px/1.15 "Titan", system-ui; color: var(--neige); margin: 4px 0 6px; }
+.vedette h2 { font-size: 26px; }
+.pitch { font-size: 14px; color: var(--texte); }
+.pitch li { list-style: none; padding-left: 1.3em; position: relative; margin-top: 3px; }
+.pitch li::before { content: "✓"; position: absolute; left: 0; color: var(--jaune); font-weight: 900; }
+.vedette .pitch { display: inline-block; text-align: left; }
+.prix { margin-top: 8px; font-size: 13px; color: var(--doux); }
+.prix b { color: var(--neige); font-size: 16px; }
+
+.cta {
+  position: relative; overflow: hidden; display: block; margin-top: 12px; text-align: center; text-decoration: none;
+  font: 17px/1 "Titan", system-ui; color: var(--neige); background: var(--rouge);
+  padding: 14px 16px; border-radius: 14px; box-shadow: 0 5px 0 #a3202b; transition: transform .1s, box-shadow .1s;
+}
+.cta:active { transform: translateY(4px); box-shadow: 0 1px 0 #a3202b; }
+.cta::after {
+  content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent); transform: skewX(-20deg);
+  animation: brille 2.8s ease-in-out infinite;
+}
+.vedette .cta { font-size: 20px; padding: 17px; }
+.second { display: block; margin-top: 8px; font-size: 13px; color: var(--doux); text-align: center; }
+.second a { color: var(--neige); }
+
+.pied { margin-top: 30px; text-align: center; font-size: 13px; color: var(--doux); }
+.pied a { color: var(--neige); font-weight: 700; text-decoration: none; }
+.ig {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px; padding: 10px 16px; border-radius: 999px;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18);
+}
+
+@keyframes flotte { 50% { transform: translateY(-6px) rotate(-2deg); } }
+@keyframes tourne { 0%,100% { transform: rotateY(-16deg) rotateX(4deg); } 50% { transform: rotateY(12deg) rotateX(-2deg) translateY(-6px); } }
+@keyframes pulse { 50% { transform: translateX(-50%) rotate(2deg) scale(1.07); } }
+@keyframes brille { 0% { left: -60%; } 55%,100% { left: 130%; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::after { animation: none !important; transition: none !important; }
+  .carte { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+<canvas id="neige" aria-hidden="true"></canvas>
+<main>
+  <header class="tete">
+    <img class="logo" src="img/logo.webp" alt="Zéro Écran" width="104" height="104">
+    <h1>ZÉRO <span>ÉCRAN</span></h1>
+    <p class="slogan">Des livres-jeux qui font <b>lâcher le téléphone</b>.<br>De 6 à 99 ans.</p>
+    <div class="rebours" id="rebours" hidden><span class="j" id="jours">–</span><span id="rebours-texte">jours avant Noël</span></div>
+  </header>
+
+  <nav class="filtres" aria-label="Pour qui ?">
+    <button type="button" data-f="tous" aria-pressed="true">Tous</button>
+    <button type="button" data-f="rire" aria-pressed="false">😂 Pour rire</button>
+    <button type="button" data-f="enfants" aria-pressed="false">🧒 Enfants</button>
+    <button type="button" data-f="seniors" aria-pressed="false">👵 Grands-parents</button>
+  </nav>
+
+  <section class="livres">
+    <article class="carte vedette" data-pour="rire">
+      <span class="badge">⭐ Notre n°1</span>
+      <div class="couv"><img src="img/cacas.webp" alt="Couverture : 24 cacas avant Noël" width="520" height="780"></div>
+      <p class="pour">Le cadeau qui fait rire toute la table</p>
+      <h2>24 cacas avant Noël</h2>
+      <ul class="pitch">
+        <li>Le calendrier de l'Avent… des toilettes</li>
+        <li>24 pauses sans téléphone : faits fous, jeux, blagues</li>
+        <li>Parfait sous le sapin ou dans la chaussette</li>
+      </ul>
+      <p class="prix">Livre <b>10,90 €</b> · Kindle 7,99 €</p>
+      <a class="cta" href="https://www.amazon.fr/dp/B0HN296LF1" target="_blank" rel="noopener">🎁 Je l'offre</a>
+      <span class="second">ou en <a href="https://www.amazon.fr/dp/B0HN354YBT" target="_blank" rel="noopener">version Kindle</a></span>
+    </article>
+
+    <article class="carte" data-pour="enfants">
+      <div class="couv"><img src="img/avent.webp" alt="Couverture : L'Avent des énigmes" width="520" height="780" loading="lazy"></div>
+      <div>
+        <p class="pour">Enfants dès 6 ans</p>
+        <h2>L'Avent des énigmes</h2>
+        <ul class="pitch">
+          <li>24 missions pour sauver Noël</li>
+          <li>2 niveaux par jour : petits et grands jouent ensemble</li>
+        </ul>
+        <p class="prix">Livre <b>10,90 €</b></p>
+        <a class="cta" href="https://www.amazon.fr/dp/B0HPHNX233" target="_blank" rel="noopener">Voir le livre</a>
+      </div>
+    </article>
+
+    <article class="carte" data-pour="seniors">
+      <div class="couv"><img src="img/motsmeles.webp" alt="Couverture : Mots mêlés XXL" width="520" height="673" loading="lazy"></div>
+      <div>
+        <p class="pour">Grands-parents</p>
+        <h2>Mots mêlés XXL</h2>
+        <ul class="pitch">
+          <li>100 grilles en très gros caractères</li>
+          <li>100 histoires vraies de France à découvrir</li>
+        </ul>
+        <p class="prix">Livre <b>9,99 €</b></p>
+        <a class="cta" href="https://www.amazon.fr/dp/B0HPHZKTQH" target="_blank" rel="noopener">Voir le livre</a>
+      </div>
+    </article>
+  </section>
+
+  <footer class="pied">
+    <a class="ig" href="https://www.instagram.com/zeroecran/" target="_blank" rel="noopener">📸 Une énigme gratuite chaque semaine : @zeroecran</a>
+    <p>Livraison par Amazon · Suisse, France, Belgique</p>
+  </footer>
+</main>
+
+<script>
+// compte à rebours jusqu'au 25 décembre (masqué hors saison)
+(() => {
+  const now = new Date(), y = now.getFullYear();
+  const noel = new Date(y, 11, 25);
+  const j = Math.ceil((noel - new Date(y, now.getMonth(), now.getDate())) / 864e5);
+  if (j < 0 || j > 70) return;
+  document.getElementById('jours').textContent = j === 0 ? '🎄' : j;
+  document.getElementById('rebours-texte').textContent = j === 0 ? "C'est Noël !" : j === 1 ? 'jour avant Noël' : 'jours avant Noël';
+  document.getElementById('rebours').hidden = false;
+})();
+
+// apparition des cartes
+const cartes = [...document.querySelectorAll('.carte')];
+const io = new IntersectionObserver((es) => es.forEach((e, i) => {
+  if (e.isIntersecting) { setTimeout(() => e.target.classList.add('vue'), i * 120); io.unobserve(e.target); }
+}), { threshold: .15 });
+cartes.forEach((c) => io.observe(c));
+
+// filtres « Pour qui ? »
+document.querySelectorAll('.filtres button').forEach((b) => b.addEventListener('click', () => {
+  document.querySelectorAll('.filtres button').forEach((x) => x.setAttribute('aria-pressed', x === b));
+  cartes.forEach((c) => {
+    c.classList.toggle('cache', b.dataset.f !== 'tous' && c.dataset.pour !== b.dataset.f);
+    c.classList.remove('vue'); requestAnimationFrame(() => requestAnimationFrame(() => c.classList.add('vue')));
+  });
+}));
+
+// couvertures qui suivent le doigt / la souris
+document.querySelectorAll('.carte:not(.vedette) .couv').forEach((el) => {
+  const img = el.querySelector('img');
+  const bouge = (x, y) => {
+    const r = el.getBoundingClientRect();
+    const dx = (x - r.left) / r.width - .5, dy = (y - r.top) / r.height - .5;
+    img.style.transform = `rotateY(${dx * 30}deg) rotateX(${-dy * 20}deg) scale(1.04)`;
+  };
+  el.addEventListener('pointermove', (e) => bouge(e.clientX, e.clientY));
+  el.addEventListener('pointerleave', () => { img.style.transform = ''; });
+});
+
+// neige
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cv = document.getElementById('neige'), cx = cv.getContext('2d');
+  let W, H, flocons;
+  const taille = () => {
+    W = cv.width = innerWidth * devicePixelRatio; H = cv.height = innerHeight * devicePixelRatio;
+    cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px';
+    flocons = Array.from({ length: Math.min(90, Math.round(innerWidth / 6)) }, () => ({
+      x: Math.random() * W, y: Math.random() * H, r: (Math.random() * 2.2 + .6) * devicePixelRatio,
+      v: (Math.random() * .6 + .25) * devicePixelRatio, o: Math.random() * Math.PI * 2,
+    }));
+  };
+  taille(); addEventListener('resize', taille);
+  const pas = (t) => {
+    cx.clearRect(0, 0, W, H); cx.fillStyle = 'rgba(255,255,255,.85)';
+    for (const f of flocons) {
+      f.y += f.v; f.x += Math.sin(t / 1400 + f.o) * .35 * devicePixelRatio;
+      if (f.y > H + 5) { f.y = -5; f.x = Math.random() * W; }
+      cx.beginPath(); cx.arc(f.x, f.y, f.r, 0, 7); cx.fill();
+    }
+    requestAnimationFrame(pas);
+  };
+  requestAnimationFrame(pas);
+})();
+</script>
+</body>
+</html>
