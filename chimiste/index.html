@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Le guide du p'tit chimiste · pages à imprimer</title>
+<meta name="description" content="Le bonus du livre « Le guide du p'tit chimiste » : les 10 carnets de chimiste et le diplôme, à imprimer pour refaire les expériences.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b1430">
+<link rel="icon" href="../img/logo.webp">
+<style>
+@font-face { font-family: "Titan"; src: url("../img/TitanOne-Regular.ttf") format("truetype"); font-display: swap; }
+:root {
+  --nuit: #162654; --nuit2: #24407f; --abysse: #0b1430;
+  --jaune: #ffc93c; --jaune2: #c8961a; --teal: #1f8a8a;
+  --neige: #ffffff; --texte: #e8edff; --doux: #a9b6e2;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--abysse); color-scheme: dark; }
+body {
+  min-height: 100dvh; color: var(--texte);
+  font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: radial-gradient(130% 55% at 50% 0%, var(--nuit2) 0%, var(--nuit) 45%, var(--abysse) 100%) no-repeat, var(--abysse);
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; height: auto; }
+.page { max-width: 520px; margin: 0 auto; padding: 28px 16px 80px; text-align: center; }
+.marque { display: inline-flex; align-items: center; gap: 10px; color: var(--jaune); text-decoration: none; font: 20px "Titan", system-ui, sans-serif; }
+.marque b { color: var(--neige); font-weight: 400; }
+.marque img { width: 36px; border-radius: 50%; box-shadow: 0 0 0 2px var(--jaune); }
+.pilule {
+  display: inline-block; margin-top: 26px; font-weight: 800; font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--abysse); background: var(--jaune); padding: 7px 14px; border-radius: 999px; box-shadow: 0 4px 0 var(--jaune2);
+}
+h1 { margin-top: 14px; font: 400 clamp(30px, 9vw, 42px)/1.05 "Titan", system-ui, sans-serif; color: var(--neige); text-wrap: balance; }
+.bulle { width: 170px; margin: 22px auto 0; border-radius: 28px; background: #fff; }
+.intro { margin-top: 20px; text-wrap: pretty; }
+ul { list-style: none; margin: 18px 0 0; text-align: left; display: grid; gap: 10px; }
+li { background: rgb(255 255 255 / .07); border: 1px solid rgb(255 255 255 / .14); border-radius: 14px; padding: 12px 14px; }
+li b { color: var(--jaune); }
+.bouton {
+  display: block; margin-top: 26px; padding: 18px 20px; border-radius: 16px; text-decoration: none;
+  font: 400 21px/1.2 "Titan", system-ui, sans-serif; color: var(--abysse); background: var(--jaune); box-shadow: 0 6px 0 var(--jaune2);
+}
+.bouton small { display: block; margin-top: 4px; font: 600 13px system-ui, sans-serif; opacity: .8; }
+.bouton:active { translate: 0 4px; box-shadow: 0 2px 0 var(--jaune2); }
+.apercu { margin: 28px auto 0; width: 78%; border-radius: 10px; box-shadow: 0 10px 30px rgb(0 0 0 / .45); rotate: -2deg; }
+.parents { margin-top: 30px; font-size: 14px; color: var(--doux); text-wrap: pretty; }
+.retour { display: inline-block; margin-top: 22px; color: var(--doux); font-size: 14px; }
+</style>
+</head>
+<body>
+<main class="page">
+  <a class="marque" href="../"><img src="../img/logo.webp" alt="" width="36" height="36"><span>Zéro <b>Écran</b></span></a>
+  <p><span class="pilule">Bonus du livre</span></p>
+  <h1>Le guide du p'tit chimiste</h1>
+  <img class="bulle" src="bulle.webp" alt="Bulle, la petite fiole à lunettes, fait coucou" width="170" height="170">
+  <p class="intro">Salut, c'est Bulle ! Voici les pages à imprimer pour refaire tes expériences autant de fois que tu veux.</p>
+  <ul>
+    <li><b>10 carnets de chimiste</b> : le défi de chaque expérience, et la place pour noter ce que tu penses et ce que tu vois.</li>
+    <li><b>Le diplôme du p'tit chimiste</b>, à remplir quand tu as fait les 10 expériences.</li>
+  </ul>
+  <a class="bouton" href="le-ptit-chimiste-a-imprimer.pdf" download>Télécharger les pages<small>PDF, 12 pages A4, 3,7 Mo</small></a>
+  <img class="apercu" src="carnet.webp" alt="Aperçu d'une page : le défi du lait magique et le carnet de chimiste" width="420" height="420" loading="lazy">
+  <p class="parents">Pour les parents : impression en A4, en couleur ou en noir et blanc. Ces pages sont réservées à un usage à la maison ou en classe, pas à la revente.</p>
+  <a class="retour" href="../">Voir tous nos livres</a>
+</main>
+</body>
+</html>
